@@ -172,8 +172,8 @@ var Shape = Item.extend(/** @lends Shape# */{
         var path = this._clone(new Path[Base.capitalize(this._type)]({
             center: new Point(),
             size: this._size,
-            radius: this._radius,
-            insert: false
+            radius: this._radius/*,
+            insert: false*/
         }), insert);
         // The created path will inherit #applyMatrix from this Shape, hence it
         // will always be false.
