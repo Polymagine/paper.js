@@ -843,7 +843,7 @@ var Item = Base.extend(Emitter, /** @lends Item# */{
         var children = this._children;
         // TODO: What to return if nothing is defined, e.g. empty Groups?
         // Scriptographer behaves weirdly then too.
-        if (!children || children.length == 0)
+        if (!children || children.length === 0)
             return new Rectangle();
         // Call _updateBoundsCache() even when the group is currently empty
         // (or only holds empty / invisible items), so future changes in these
@@ -880,8 +880,8 @@ var Item = Base.extend(Emitter, /** @lends Item# */{
         // Scale to new Size, if size changes and avoid divisions by 0:
         if (rect.width != bounds.width || rect.height != bounds.height) {
             matrix.scale(
-                    bounds.width != 0 ? rect.width / bounds.width : 1,
-                    bounds.height != 0 ? rect.height / bounds.height : 1);
+                    bounds.width !== 0 ? rect.width / bounds.width : 1,
+                    bounds.height !== 0 ? rect.height / bounds.height : 1);
         }
         // Translate to bounds center:
         center = bounds.getCenter();
@@ -1541,22 +1541,24 @@ var Item = Base.extend(Emitter, /** @lends Item# */{
             topLeft = bounds.getTopLeft().floor(),
             bottomRight = bounds.getBottomRight().ceil(),
             size = new Size(bottomRight.subtract(topLeft)),
-            canvas = CanvasProvider.getCanvas(size.multiply(scale)),
-            ctx = canvas.getContext('2d'),
-            matrix = new Matrix().scale(scale).translate(topLeft.negate());
-        ctx.save();
-        matrix.applyToContext(ctx);
-        // See Project#draw() for an explanation of new Base()
-        this.draw(ctx, new Base({ matrices: [matrix] }));
-        ctx.restore();
-        var raster = new Raster(Item.NO_INSERT);
-        raster.setCanvas(canvas);
+            raster = new Raster(Item.NO_INSERT);
+        if (!size.isZero()) {
+            var canvas = CanvasProvider.getCanvas(size.multiply(scale)),
+                ctx = canvas.getContext('2d'),
+                matrix = new Matrix().scale(scale).translate(topLeft.negate());
+            ctx.save();
+            matrix.applyToContext(ctx);
+            // See Project#draw() for an explanation of new Base()
+            this.draw(ctx, new Base({ matrices: [matrix] }));
+            ctx.restore();
+            // NOTE: We don't need to release the canvas since it belongs to the
+            // raster now!
+            raster.setCanvas(canvas);
+        }
         raster.transform(new Matrix().translate(topLeft.add(size.divide(2)))
                 // Take resolution into account and scale back to original size.
                 .scale(1 / scale));
         raster.insertAbove(this);
-        // NOTE: We don't need to release the canvas since it now belongs to the
-        // Raster!
         return raster;
     },
 

@@ -417,7 +417,8 @@ var Path = PathItem.extend(/** @lends Path# */{
             var total = this._countCurves(),
                 // If we're adding a new segment to the end of an open path,
                 // we need to step one index down to get its curve.
-                from = index + amount - 1 === total ? index - 1 : index,
+                from = index > 0 && index + amount - 1 === total ? index - 1
+                    : index,
                 start = from,
                 to = Math.min(from + amount, total);
             if (segs._curves) {
@@ -1206,7 +1207,7 @@ var Path = PathItem.extend(/** @lends Path# */{
             if (typeof arg === 'number')
                 arg = this.getLocationAt(arg);
             if (!arg)
-                return null
+                return null;
             // split(location)
             index = arg.index;
             parameter = arg.parameter;
