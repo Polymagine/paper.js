@@ -33,7 +33,7 @@ function XMLSerializer() {
 }
 
 XMLSerializer.prototype.serializeToString = function(node) {
-    var text = domToHtml(node);
+    var text = jsdom.serializeDocument(node);
     // Fix a jsdom issue where all SVG tagNames are lowercased:
     // https://github.com/tmpvar/jsdom/issues/620
     var tagNames = ['linearGradient', 'radialGradient', 'clipPath'];
