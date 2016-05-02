@@ -1,6 +1,6 @@
 {
   "name": "paper-polymagine",
-  "version": "0.925.0",
+  "version": "0.925.2",
   "description": "The Swiss Army Knife of Vector Graphics Scripting, customized by Polymagine",
   "license": "MIT",
   "homepage": "http://paperjs.org",
@@ -26,7 +26,7 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "jsdom": ">=3.1.2",
+    "jsdom": ">=3.1.2 <8.x",
     "request": "~2.61.0"
   },
   "optionalDependencies": {
