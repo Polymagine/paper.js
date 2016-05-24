@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon May 2 15:17:13 2016 +0200
+ * Date: Mon May 2 15:25:39 2016 +0200
  *
  ***
  *
@@ -7939,17 +7939,27 @@ new function() {
 			var state = segment._selectionState,
 				pX = coords[0],
 				pY = coords[1];
+
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = '#000000';
+
 			if (state & 1)
 				drawHandle(2);
 			if (state & 2)
 				drawHandle(4);
-			ctx.fillRect(pX - half, pY - half, size, size);
-			if (!(state & 4)) {
-				var fillStyle = ctx.fillStyle;
-				ctx.fillStyle = '#ffffff';
+
+			if (state & 4) {
+				ctx.fillRect(pX - half, pY - half, size, size);
+				ctx.fillStyle = '#FFFFFF';
 				ctx.fillRect(pX - half + 1, pY - half + 1, size - 2, size - 2);
+
+			} else {
 				ctx.fillStyle = fillStyle;
+				ctx.fillRect(pX - half, pY - half, size, size);
 			}
+
+			ctx.fillStyle = fillStyle;
+
 		}
 	}
 

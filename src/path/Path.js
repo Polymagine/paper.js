@@ -2079,20 +2079,27 @@ new function() { // Scope for drawing
             var state = segment._selectionState,
                 pX = coords[0],
                 pY = coords[1];
+
+			var fillStyle = ctx.fillStyle;
+			ctx.fillStyle = '#000000';
+
             if (state & /*#=*/SelectionState.HANDLE_IN)
                 drawHandle(2);
             if (state & /*#=*/SelectionState.HANDLE_OUT)
                 drawHandle(4);
-            // Draw a rectangle at segment.point:
-            ctx.fillRect(pX - half, pY - half, size, size);
-            // If the point is not selected, draw a white square that is 1 px
-            // smaller on all sides:
-            if (!(state & /*#=*/SelectionState.POINT)) {
-                var fillStyle = ctx.fillStyle;
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(pX - half + 1, pY - half + 1, size - 2, size - 2);
-                ctx.fillStyle = fillStyle;
-            }
+
+			if (state & /*#=*/SelectionState.POINT) {
+				ctx.fillRect(pX - half, pY - half, size, size);
+				ctx.fillStyle = '#FFFFFF';
+	            ctx.fillRect(pX - half + 1, pY - half + 1, size - 2, size - 2);
+
+			} else {
+				ctx.fillStyle = fillStyle;
+				ctx.fillRect(pX - half, pY - half, size, size);
+			}
+
+			ctx.fillStyle = fillStyle;
+
         }
     }
 
