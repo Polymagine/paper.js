@@ -1,5 +1,5 @@
 /*!
- * Paper.js v0.10.2-local - The Swiss Army Knife of Vector Graphics Scripting.
+ * Paper.js v0.10.2-polymagine - The Swiss Army Knife of Vector Graphics Scripting.
  * http://paperjs.org/
  *
  * Copyright (c) 2011 - 2016, Juerg Lehni & Jonathan Puckey
@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Tue May 24 09:31:10 2016 +0200
+ * Date: Tue Aug 2 14:05:52 2016 +0200
  *
  ***
  *
@@ -769,7 +769,7 @@ var PaperScope = Base.extend({
 		}
 	},
 
-	version: "0.10.2-local",
+	version: "0.10.2-polymagine",
 
 	getView: function() {
 		var project = this.project;
